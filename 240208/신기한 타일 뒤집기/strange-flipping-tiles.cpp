@@ -36,7 +36,7 @@ int main()
         else continue;
     }
 
-    cout << max(r, l) << " " << min(r, l);
+    cout << l << " " << r;
 
     return 0;
 }
