@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int a[201][201];
+int a[1001][1001];
 int c,n,x,xx,y,yy,lx,ly;
 int i,j,t;
 
