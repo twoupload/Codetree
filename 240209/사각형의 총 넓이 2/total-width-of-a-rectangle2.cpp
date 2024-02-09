@@ -9,6 +9,8 @@ int i,j,t;
 
 int main()
 {
+    //freopen("input.txt" ,"r", stdin);
+
     cin >> n;
 
     for(i = 0; i < n; i++) {
@@ -17,8 +19,8 @@ int main()
         lx = (xx + OFFSET) - (x + OFFSET);
         ly = (yy + OFFSET) - (y + OFFSET);
 
-        for(j = y; j < y + ly; j++) {
-            for(t = x; t < x + lx; t++) {
+        for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
+            for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
                 a[j][t] = 1;
             }
         }
