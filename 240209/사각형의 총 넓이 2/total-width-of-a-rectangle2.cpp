@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int a[1001][1001];
+int a[201][201];
 int c,n,x,xx,y,yy,lx,ly;
 int i,j,t;
 
@@ -24,8 +24,8 @@ int main()
         }
     }
 
-    for(i = 0; i <= 100; i++) {
-        for(j = 0; j <= 100; j++) {
+    for(i = 0; i <= 200; i++) {
+        for(j = 0; j <= 200; j++) {
             if(a[i][j] != 0) {
                 c++;
             }
