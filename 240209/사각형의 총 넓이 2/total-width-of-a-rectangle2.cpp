@@ -4,29 +4,28 @@
 using namespace std;
 
 int a[201][201];
-int c;
+int c,n,x,xx,y,yy,lx,ly;
+int i,j,t;
 
 int main()
 {
-    int n;
     cin >> n;
 
-    for(int i = 0; i < n; i++) {
-        int x, xx, y, yy,lx,ly;
+    for(i = 0; i < n; i++) {
         cin >> x >> y >> xx >> yy;
 
         lx = (xx + OFFSET) - (x + OFFSET);
         ly = (yy + OFFSET) - (y + OFFSET);
 
-        for(int j = y; j < y + ly; j++) {
-            for(int t = x; t < x + lx; t++) {
+        for(j = y; j < y + ly; j++) {
+            for(t = x; t < x + lx; t++) {
                 a[j][t] = 1;
             }
         }
     }
 
-    for(int i = 0; i <= 100; i++) {
-        for(int j = 0; j <= 100; j++) {
+    for(i = 0; i <= 100; i++) {
+        for(j = 0; j <= 100; j++) {
             if(a[i][j] != 0) {
                 c++;
             }
