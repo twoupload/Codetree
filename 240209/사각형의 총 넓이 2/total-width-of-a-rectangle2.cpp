@@ -8,7 +8,6 @@ int c;
 
 int main()
 {
-    //freopen("input.txt" ,"r", stdin);
     int n;
     cin >> n;
 
