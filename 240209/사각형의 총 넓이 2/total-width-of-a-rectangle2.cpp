@@ -19,6 +19,7 @@ int main()
         lx = (xx + OFFSET) - (x + OFFSET);
         ly = (yy + OFFSET) - (y + OFFSET);
 
+        // 값이 음수가 나오는 경우가 있기 때문에 범위에 OFFSET을 더해준다. 
         for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
             for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
                 a[j][t] = 1;
