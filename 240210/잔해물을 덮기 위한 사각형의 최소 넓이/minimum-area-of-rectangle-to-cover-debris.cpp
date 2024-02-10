@@ -16,6 +16,8 @@ F f[3001];
 int main() {
     //freopen("input.txt", "r", stdin);
 
+
+
     for(i = 0; i < 2; i++) {
         cin >> x >> y >> x2 >> y2;
 
@@ -52,8 +54,11 @@ int main() {
     }
 
     // 좌표를 이용해 길이를 계산
-    lenx = f[cnt - 1].fx - f[0].fx + 1;
-    leny = f[cnt - 1].fy - f[0].fy + 1;
+    lenx = f[cnt - 1].fx - f[0].fx;
+    leny = f[cnt - 1].fy - f[0].fy;
+
+    if(lenx != 0) lenx += 1;
+    if(leny != 0) leny += 1;
 
     // 넓이 도출.
     cout << lenx * leny;
