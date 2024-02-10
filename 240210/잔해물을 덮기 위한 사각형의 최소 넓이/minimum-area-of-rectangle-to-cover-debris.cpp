@@ -1,82 +1,36 @@
 #include <iostream>
-#define OFFSET 1000
+#include <algorithm>
 
 using namespace std;
 
-struct F {
-    int fx;
-    int fy;
-};
-
-int x, y, x2, y2, lx, ly, kx, ky, cnt, lenx, leny;
-int i,j,t;
-int a[10001][10001];
-F f[10001];
-
 int main() {
-    //freopen("input.txt", "r", stdin);
+    int x1, y1, x2, y2;
+    int x3, y3, x4, y4;
+    cin >> x1 >> y1 >> x2 >> y2;
+    cin >> x3 >> y3 >> x4 >> y4;
 
+    int minX = min(x1, x2);
+    int minY = min(y1, y2);
+    int maxX = max(x1, x2);
+    int maxY = max(y1, y2);
 
-
-    for(i = 0; i < 2; i++) {
-        cin >> x >> y >> x2 >> y2;
-
-        lx = (x2 + OFFSET) - (x + OFFSET);
-        ly = (y2 + OFFSET) - (y + OFFSET);
-
-        // 남은 면을 배열에 찍는 과정
-        if(i == 0) {
-            for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
-                for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
-                    a[j][t] = 1;
-                }
-            }
-        }
-        else {
-            for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
-                for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
-                    a[j][t] = 0;
-                }
-            }
-        }
-
-    }
-
-    // 관련 구조체에 각 좌표를 넣는 과정
-    for(i = 0; i < 10001; i++) {
-        for(j = 0; j < 10001; j++) {
-            if(a[i][j] == 1) {
-                f[kx].fx = i;
-                f[kx].fy = j;
-                kx++;
-                cnt++;
-            }
-        }
-    }
-
-    /*
-    for(i = 0; i < 200; i++) {
-        cout << f[i].fx << " " << f[i].fy << endl;
-    }
-    */
+    // 두 사각형이 겹치는 영역을 계산합니다.
+    int overlapX = max(0, min(x2, x4) - max(x1, x3));
+    int overlapY = max(0, min(y2, y4) - max(y1, y3));
     
-    // 좌표를 이용해 길이를 계산
-    if(cnt == 0) {
-        lenx = f[cnt - 1].fx - f[0].fx;
-        leny = f[cnt - 1].fy - f[0].fy;
+    // 겹치는 영역이 있다면
+    if (overlapX > 0 && overlapY > 0) {
+        // 겹치는 영역을 첫 번째 사각형에서 제거합니다.
+        if (x1 == max(x1, x3)) minX = min(x1, x4);
+        if (y1 == max(y1, y3)) minY = min(y1, y4);
+        if (x2 == min(x2, x4)) maxX = max(x2, x3);
+        if (y2 == min(y2, y4)) maxY = max(y2, y3);
     }
 
-    else {
-        lenx = f[cnt - 1].fx - f[0].fx + 1;
-        leny = f[cnt - 1].fy - f[0].fy + 1;
-    }
+    // 남아있는 첫 번째 사각형의 부분을 덮는 최소 사각형의 넓이를 계산합니다.
+    int area = (maxX - minX) * (maxY - minY);
 
-    //cout << f[0].fx << " " << f[0].fy << endl;
-    //cout << f[1023316 - 1].fx << " " << f[1023316 - 1].fy << endl;
-    //cout << lenx << " " << leny << " " << cnt << endl;
-    // 넓이 도출.
-    cout << lenx * leny;
+    cout << area << endl;
 
     return 0;
-
 }
