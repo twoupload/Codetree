@@ -6,7 +6,8 @@ using namespace std;
 int i,j,t;
 int a[3001][3001];
 int x,x2,y,y2,lx,ly;
-int lenX = -9999, temp, lenY;
+int lenX = -9999, temp, temp2, k, kk, c;
+int lenY[3001];
 
 int main()
 {
@@ -39,7 +40,7 @@ int main()
         for(j = 0; j <= 2001; j++) {
             if(a[i][j] == 1) {
                 temp++;
-                lenY = i - OFFSET;
+                lenY[k++] = i;
             }
         }
         if(temp > lenX) {
@@ -48,6 +49,14 @@ int main()
         temp = 0;
     }
 
-    cout << lenX * lenY;
+    kk = lenY[0];
+    for(i = 1; i <= 100; i++) {
+        if(lenY[i] != kk){
+            c++;
+            kk = lenY[i];
+        }
+    }
+
+    cout << lenX * c;
     return 0;
 }
