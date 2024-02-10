@@ -56,16 +56,26 @@ int main() {
 
 
     // 좌표를 이용해 길이를 계산
-    for(i = 0; i < cnt; i++) {
-        if(f[i].fx > maxX) maxX = f[i].fx;
-        if(f[i].fy > maxY) maxY = f[i].fy;
-        if(f[i].fx < minX) minX = f[i].fx;
-        if(f[i].fy < minY) minY = f[i].fy;
+
+    if(cnt == 0) {
+        lenx = 0;
+        leny = 0;
     }
 
-    lenx = maxX - minX + 1;
-    leny = maxY - minY + 1;
+    else {
+        for(i = 0; i < cnt; i++) {
+            if(f[i].fx > maxX) maxX = f[i].fx;
+            if(f[i].fy > maxY) maxY = f[i].fy;
+            if(f[i].fx < minX) minX = f[i].fx;
+            if(f[i].fy < minY) minY = f[i].fy;
+        }
 
+        cout << maxX << " " << minX << endl;
+        cout << maxY << " " << minY << endl;
+
+        lenx = maxX - minX + 1;
+        leny = maxY - minY + 1;
+    }
     // 넓이 도출.
     cout << lenx * leny;
 
