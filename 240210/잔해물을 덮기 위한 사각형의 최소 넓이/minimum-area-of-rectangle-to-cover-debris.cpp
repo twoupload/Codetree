@@ -70,9 +70,6 @@ int main() {
             if(f[i].fy < minY) minY = f[i].fy;
         }
 
-        cout << maxX << " " << minX << endl;
-        cout << maxY << " " << minY << endl;
-
         lenx = maxX - minX + 1;
         leny = maxY - minY + 1;
     }
