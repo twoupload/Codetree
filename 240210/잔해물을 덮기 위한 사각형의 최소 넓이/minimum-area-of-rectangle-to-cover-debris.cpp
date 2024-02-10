@@ -46,17 +46,20 @@ int main() {
     for(i = 0; i < 10001; i++) {
         for(j = 0; j < 10001; j++) {
             if(a[i][j] == 1) {
-                f[kx++].fx = j;
-                f[ky++].fy = i;
+                f[kx].fx = i;
+                f[kx].fy = j;
+                kx++;
                 cnt++;
             }
         }
     }
 
-
+    /*
     for(i = 0; i < 200; i++) {
         cout << f[i].fx << " " << f[i].fy << endl;
     }
+    */
+    
     // 좌표를 이용해 길이를 계산
     if(cnt == 0) {
         lenx = f[cnt - 1].fx - f[0].fx;
@@ -68,7 +71,9 @@ int main() {
         leny = f[cnt - 1].fy - f[0].fy + 1;
     }
 
-    cout << lenx << " " << leny << endl;
+    //cout << f[0].fx << " " << f[0].fy << endl;
+    //cout << f[1023316 - 1].fx << " " << f[1023316 - 1].fy << endl;
+    //cout << lenx << " " << leny << " " << cnt << endl;
     // 넓이 도출.
     cout << lenx * leny;
 
