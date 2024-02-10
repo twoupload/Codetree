@@ -6,8 +6,8 @@ using namespace std;
 int i,j,t;
 int a[3001][3001];
 int x,x2,y,y2,lx,ly;
-int lenX = -9999, temp, temp2, k, kk, c;
-int lenY[3001];
+int xx = -9999, temp, k;
+int lenY[3001], yy;
 
 int main()
 {
@@ -43,20 +43,23 @@ int main()
                 lenY[k++] = i;
             }
         }
-        if(temp > lenX) {
-            lenX = temp;
+        if(temp > xx) {
+            xx = temp;
         }
         temp = 0;
     }
 
-    kk = lenY[0];
-    for(i = 1; i <= 100; i++) {
-        if(lenY[i] != kk){
-            c++;
-            kk = lenY[i];
-        }
+    int cnt = 0;
+    int temp2 = lenY[cnt];
+
+    while(temp2 != 0) {
+        cnt += 1;
+        temp2 = lenY[cnt];
+
     }
 
-    cout << lenX * c;
+    yy = lenY[cnt - 1] - lenY[0] + 1;
+
+    cout << xx * yy;
     return 0;
 }
