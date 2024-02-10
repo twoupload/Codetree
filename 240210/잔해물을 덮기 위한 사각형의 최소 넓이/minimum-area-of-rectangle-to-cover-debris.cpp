@@ -3,32 +3,36 @@
 
 using namespace std;
 
+struct F {
+    int fx;
+    int fy;
+};
+
+int x, y, x2, y2, lx, ly, kx, ky, cnt, lenx, leny;
 int i,j,t;
 int a[3001][3001];
-int x,x2,y,y2,lx,ly;
-int xx = -9999, temp, k;
-int lenY[3001], yy;
+F f[3001];
 
-int main()
-{
+int main() {
     //freopen("input.txt", "r", stdin);
 
-    for(i = 1; i <= 2; i++) {
+    for(i = 0; i < 2; i++) {
         cin >> x >> y >> x2 >> y2;
 
         lx = (x2 + OFFSET) - (x + OFFSET);
         ly = (y2 + OFFSET) - (y + OFFSET);
 
-        if(i == 1) {
-            for(j = y + OFFSET; j < ly + OFFSET + y; j++) {
-                for(t = x + OFFSET; t < x + OFFSET + lx; t++) {
+        // 남은 면을 배열에 찍는 과정
+        if(i == 0) {
+            for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
+                for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
                     a[j][t] = 1;
                 }
             }
         }
         else {
-            for(j = y + OFFSET; j < y + OFFSET + ly; j++) {
-                for(t = x + OFFSET; t < x + OFFSET + lx; t++) {
+            for(j = y + OFFSET; j < y + ly + OFFSET; j++) {
+                for(t = x + OFFSET; t < x + lx + OFFSET; t++) {
                     a[j][t] = 0;
                 }
             }
@@ -36,30 +40,24 @@ int main()
 
     }
 
-    for(i = 0; i <= 2001; i++) {
-        for(j = 0; j <= 2001; j++) {
+    // 관련 구조체에 각 좌표를 넣는 과정
+    for(i = 0; i < 2001; i++) {
+        for(j = 0; j < 2001; j++) {
             if(a[i][j] == 1) {
-                temp++;
-                lenY[k++] = i;
+                f[kx++].fx = i;
+                f[ky++].fy = j;
+                cnt++;
             }
         }
-        if(temp > xx) {
-            xx = temp;
-        }
-        temp = 0;
     }
 
-    int cnt = 0;
-    int temp2 = lenY[cnt];
+    // 좌표를 이용해 길이를 계산
+    lenx = f[cnt - 1].fx - f[0].fx + 1;
+    leny = f[cnt - 1].fy - f[0].fy + 1;
 
-    while(temp2 != 0) {
-        cnt += 1;
-        temp2 = lenY[cnt];
+    // 넓이 도출.
+    cout << lenx * leny;
 
-    }
-
-    yy = lenY[cnt - 1] - lenY[0] + 1;
-
-    cout << xx * yy;
     return 0;
+
 }
