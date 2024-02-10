@@ -10,8 +10,8 @@ struct F {
 
 int x, y, x2, y2, lx, ly, kx, ky, cnt, lenx, leny;
 int i,j,t;
-int a[3001][3001];
-F f[3001];
+int a[10001][10001];
+F f[10001];
 
 int main() {
     //freopen("input.txt", "r", stdin);
