@@ -43,16 +43,20 @@ int main() {
     }
 
     // 관련 구조체에 각 좌표를 넣는 과정
-    for(i = 0; i < 2001; i++) {
-        for(j = 0; j < 2001; j++) {
+    for(i = 0; i < 10001; i++) {
+        for(j = 0; j < 10001; j++) {
             if(a[i][j] == 1) {
-                f[kx++].fx = i;
-                f[ky++].fy = j;
+                f[kx++].fx = j;
+                f[ky++].fy = i;
                 cnt++;
             }
         }
     }
 
+
+    for(i = 0; i < 200; i++) {
+        cout << f[i].fx << " " << f[i].fy << endl;
+    }
     // 좌표를 이용해 길이를 계산
     if(cnt == 0) {
         lenx = f[cnt - 1].fx - f[0].fx;
@@ -64,6 +68,7 @@ int main() {
         leny = f[cnt - 1].fy - f[0].fy + 1;
     }
 
+    cout << lenx << " " << leny << endl;
     // 넓이 도출.
     cout << lenx * leny;
 
