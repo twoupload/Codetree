@@ -54,11 +54,15 @@ int main() {
     }
 
     // 좌표를 이용해 길이를 계산
-    lenx = f[cnt - 1].fx - f[0].fx;
-    leny = f[cnt - 1].fy - f[0].fy;
+    if(cnt == 0) {
+        lenx = f[cnt - 1].fx - f[0].fx;
+        leny = f[cnt - 1].fy - f[0].fy;
+    }
 
-    if(lenx != 0) lenx += 1;
-    if(leny != 0) leny += 1;
+    else {
+        lenx = f[cnt - 1].fx - f[0].fx + 1;
+        leny = f[cnt - 1].fy - f[0].fy + 1;
+    }
 
     // 넓이 도출.
     cout << lenx * leny;
