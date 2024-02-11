@@ -4,9 +4,8 @@
 using namespace std;
 
 int a[MAX];
-// dp 동적계획법을 사용.
-int dp[MAX]; 
-int n, i;
+int dp[MAX];
+int n, i, maxx = -9999;
 
 int main()
 {
@@ -21,14 +20,18 @@ int main()
     dp[1] = 1;
 
     for(i = 2; i <= n; i++) {
-        if(a[i] != a[i-1]) {
+        if(a[i] == a[i-1]) {
             dp[i] = dp[i-1] + 1;
         }
         else {
-            dp[i] = dp[i - 1];
+            dp[i] = 1;
         }
     }
 
-    cout << dp[n];
+    for(i = 1; i <= n; i++) {
+        if(dp[i] > maxx) maxx = dp[i];
+    }
+
+    cout << maxx;
     return 0;
 }
