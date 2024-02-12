@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int n, m, t, cur, temp;
+int n, m, t, cur, temp, cntA, cntB, len;
 char d;
 int a[MAX], b[MAX];
 int i,j;
@@ -16,6 +16,7 @@ int main() {
     cur = 1;
     for(i = 1; i <= n; i++) {
         cin >> d >> t;
+        cntA += t;
 
         if(d == 'R') {
             for(j = cur; j < cur + t; j++) {
@@ -37,6 +38,7 @@ int main() {
     temp = 0;
     for(i = 1; i <= m; i++) {
         cin >> d >> t;
+        cntB += t;
 
         if(d == 'R') {
             for(j = cur; j < cur + t; j++) {
@@ -57,15 +59,24 @@ int main() {
 
 
     cur = 1;
+    len = max(cntA, cntB);
 
     while(1) {
-        if(a[cur] == b[cur]) {
-            cout << cur;
-            return 0;
+        if(cur > len) {
+            cout << -1;
+            break;
         }
-        cur++;
+        else {
+            if(a[cur] == b[cur]) {
+                cout << cur;
+                break;
+            }
+            else {
+               cur++;
+            }
+        }
     }
 
-    cout << -1;
+
     return 0;
 }
