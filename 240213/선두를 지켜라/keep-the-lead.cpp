@@ -1,5 +1,5 @@
 #include <iostream>
-#define MAX 123456789
+#define MAX 1234567
 using namespace std;
 
 int n, m, v,t, cur, allt, stp, cnt;
