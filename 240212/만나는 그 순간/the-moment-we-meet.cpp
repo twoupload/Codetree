@@ -1,5 +1,5 @@
 #include <iostream>
-#define MAX 1001
+#define MAX 1234567
 
 using namespace std;
 
