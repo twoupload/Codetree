@@ -1,9 +1,9 @@
 #include <iostream>
-
+#define MAX 123456789
 using namespace std;
 
 int n, m, v,t, cur, allt, stp, cnt;
-int a[101], b[101], r[101];
+int a[MAX], b[MAX], r[MAX];
 int i, j;
 
 int main()
