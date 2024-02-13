@@ -12,6 +12,7 @@ char d;
 int main()
 {
     //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
     cin >> n >> m;
 
 
@@ -69,17 +70,17 @@ int main()
     }
 
 
-
-
     for(i = 1; i <= cur; i++) {
         if(a[i] == b[i]) {
-            if(r[i-1] == 0) r[i] = 1;
+            if(a[i-1] != b[i-1] && r[i-1] == 0) r[i] = 1;
             else r[i] = 2;
         }
 
         if(r[i] == 1) cnt++;
     }
 
+
     cout << cnt;
+
     return 0;
 }
