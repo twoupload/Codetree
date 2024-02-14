@@ -44,23 +44,26 @@ int main()
 
     for(i = 1; i <= T; i++) {
         if(infp[info[i].px].sw == true && infp[info[i].py].sw == true) {
-            if(infp[info[i].px].inf == true) {
+            if(infp[info[i].px].inf == true && infp[info[i].py].inf == false) {
                 infp[info[i].px].cnt += 1;
                 infp[info[i].py].inf = true;
             }
+            else if(infp[info[i].px].inf == false && infp[info[i].py].inf == true) {
+                infp[info[i].py].cnt += 1;
+                infp[info[i].px].inf = true;
+            }
             else {
-                if(infp[info[i].py].inf == true) {
-                    infp[info[i].py].cnt += 1;
-                    infp[info[i].px].inf = true;
-                }
-                else continue;
+                infp[info[i].px].cnt += 1;
+                infp[info[i].py].cnt += 1;
             }
         }
         else continue;
 
         if(infp[info[i].px].cnt >= K) infp[info[i].px].sw = false;
         if(infp[info[i].py].cnt >= K) infp[info[i].py].sw = false;
+
     }
+
 
     for(i = 1; i <= N; i++) {
         cout << infp[i].inf;
