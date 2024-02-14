@@ -25,14 +25,14 @@ INFO info[1001];
 int main()
 {
     // N = 개발자 수
-    // P = 전염 횟수
-    // K = 감염된 개발자
+    // P = 감염된 개발자
+    // K = 전염 횟수
     // T = 행동의 횟수
     //freopen("input.txt", "r", stdin);
 
     cin >> N >> K >> P >> T;
 
-    infp[K].inf = true;
+    infp[P].inf = true;
 
     for(i = 1; i <= T; i++) {
         cin >> t >> x >> y;
@@ -58,8 +58,8 @@ int main()
         }
         else continue;
 
-        if(infp[info[i].px].cnt >= P) infp[info[i].px].sw = false;
-        if(infp[info[i].py].cnt >= P) infp[info[i].py].sw = false;
+        if(infp[info[i].px].cnt >= K) infp[info[i].px].sw = false;
+        if(infp[info[i].py].cnt >= K) infp[info[i].py].sw = false;
     }
 
     for(i = 1; i <= N; i++) {
