@@ -19,8 +19,8 @@ bool sorting(INFO& f1, INFO& f2) {
     return f1.ti < f2.ti;
 }
 
-INF_P infp[101];
-INFO info[101];
+INF_P infp[1001];
+INFO info[1001];
 
 int main()
 {
