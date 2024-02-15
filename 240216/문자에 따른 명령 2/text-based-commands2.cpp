@@ -28,13 +28,11 @@ int main()
             {
                 dx[k] = dx[k-1] + 1;
                 dy[k] = dy[k-1];
-                k++;
             }
             else if(d == 1)
             {
                 dx[k] = dx[k-1];
                 dy[k] = dy[k-1] - 1;
-                k++;
             }
             else if(d == 2)
             {
@@ -45,11 +43,11 @@ int main()
             {
                 dx[k] = dx[k-1];
                 dy[k] = dy[k-1] + 1;
-                k++;
             }
+            k++;
         }
     }
 
-    cout << dx[k] << " " << dy[k];
+    cout << dx[k-1] << " " << dy[k-1];
     return 0;
 }
