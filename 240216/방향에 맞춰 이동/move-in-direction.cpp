@@ -26,10 +26,7 @@ int main()
             dirx[i] = dirx[i-1] - m, diry[i] = diry[i-1];
     }
 
-
-    for(i = 1; i <= n; i++) {
-        cout << dirx[i] << " " << diry[i] << endl;
-    }
+    cout << dirx[n] << " " << diry[n];
 
     return 0;
 }
