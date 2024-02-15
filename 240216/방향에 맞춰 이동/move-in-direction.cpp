@@ -8,7 +8,7 @@ char d;
 
 int main()
 {
-    int n;
+    //freopen("input.txt", "r", stdin);
 
     cin >> n;
 
@@ -17,7 +17,7 @@ int main()
         cin >> d >> m;
 
         if(d == 'N')
-            dirx[i] = dirx[i], diry[i] = diry[i-1] + m;
+            dirx[i] = dirx[i-1], diry[i] = diry[i-1] + m;
         else if(d == 'S')
             dirx[i] = dirx[i-1], diry[i] = diry[i-1] - m;
         else if(d == 'E')
@@ -26,6 +26,10 @@ int main()
             dirx[i] = dirx[i-1] - m, diry[i] = diry[i-1];
     }
 
-    cout << dirx[n] << " " << diry[n];
+
+    for(i = 1; i <= n; i++) {
+        cout << dirx[i] << " " << diry[i] << endl;
+    }
+
     return 0;
 }
