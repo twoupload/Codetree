@@ -1,5 +1,5 @@
 #include <iostream>
-#define MAX 1234567
+#define MAX 12345678
 using namespace std;
 
 string movement;
@@ -27,25 +27,32 @@ int main()
             if(d == 0)
             {
                 dx[k] = dx[k-1] + 1;
+                dy[k] = dy[k-1];
                 k++;
             }
             else if(d == 1)
             {
+                dx[k] = dx[k-1];
                 dy[k] = dy[k-1] - 1;
                 k++;
             }
             else if(d == 2)
             {
                 dx[k] = dx[k-1] - 1;
+                dy[k] = dy[k-1];
             }
             else
             {
+                dx[k] = dx[k-1];
                 dy[k] = dy[k-1] + 1;
                 k++;
             }
         }
     }
 
-    cout << dx[k] << " " << dy[k];
+    for(i = 0; i <= k; i++)
+    {
+        cout << dx[i] << " " << dy[i] << endl;
+    }
     return 0;
 }
