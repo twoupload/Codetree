@@ -11,7 +11,7 @@ int main()
     int n,cnt = 1;
     cin >> n;
 
-    for(i = 1; i <= 6; i++) {
+    for(i = 1; i <= n; i++) {
         char d;
         int m;
         cin >> d >> m;
@@ -37,6 +37,7 @@ int main()
         cnt = cnt + m;
     }
 
+
     for(i = 1; i < cnt; i++) {
         if(dx[i] == 0 && dy[i] == 0) {
             cout << i;
@@ -45,5 +46,6 @@ int main()
     }
 
     cout << -1;
+
     return 0;
 }
