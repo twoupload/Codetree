@@ -1,65 +1,51 @@
-/// 작은 구슬의 이동
 #include <iostream>
-#define MAX 1234567
+#include <string>
+
+#define ASCII_NUM 128
+#define DIR_NUM 4
+
 using namespace std;
 
-int dx[MAX], dy[MAX];
+int n, t;
+int x, y, dir;
+int mapper[ASCII_NUM];
 
-int main()
-{
-    //freopen("input.txt", "r", stdin);
+int dx[DIR_NUM] = {0, 1, -1,  0};
+int dy[DIR_NUM] = {1, 0,  0, -1};
 
-    int n,t;
-    cin >> n >> t;
+bool InRange(int x, int y) {
+    return 0 <= x && x < n && 0 <= y && y < n;
+}
 
-    int r, c;
-    char d;
-    cin >> r >> c >> d;
-
-    dx[0] = c, dy[0] = r;
-
-    int dir;
-
-    if(d == 'R') dir = 0;
-    else if(d == 'U') dir = 2;
-    else if(d == 'D') dir = 1;
-    else dir = 3;
-
-
-    for(int i = 1; i <= t; i++) {
-        if((dx[i-1] == 1 && dir == 3) || (dx[i-1] == n && dir == 0)
-           || (dy[i-1] == 1 && dir == 2) || (dy[i-1] == n && dir == 1))
-        {
-            dir = 3 - dir;
-            dx[i] = dx[i-1];
-            dy[i] = dy[i-1];
+void Simulate() {
+    while(t--) {
+        int nx = x + dx[dir], ny = y + dy[dir];
+        // 범위 안에 들어온다면 그대로 진행합니다.
+        if(InRange(nx, ny)) {
+            x = nx, y = ny;
         }
-
+        // 벽에 부딪힌다면, 방향을 바꿔줍니다.
         else
-        {
-            if(dir == 0)
-            {
-                dx[i] = dx[i-1] + 1;
-                dy[i] = dy[i-1];
-            }
-            else if(dir == 1)
-            {
-                dx[i] = dx[i-1];
-                dy[i] = dy[i-1] - 1;
-            }
-            else if(dir == 2)
-            {
-                dx[i] = dx[i-1];
-                dy[i] = dy[i-1] + 1;
-            }
-            else
-            {
-                dx[i] = dx[i-1] - 1;
-                dy[i] = dy[i-1];
-            }
-        }
+            dir = 3 - dir;
     }
+}
 
-    cout << dy[t] << " " << dx[t];
+int main() {
+    // 입력
+    cin >> n >> t;
+    
+    // 각 알파벳 별 방향 번호를 설정합니다.
+    mapper['R'] = 0;
+    mapper['D'] = 1;
+    mapper['U'] = 2;
+    mapper['L'] = 3;
+    
+    char c_dir;
+    cin >> x >> y >> c_dir;
+    x--; y--; dir = mapper[c_dir];
+    
+    Simulate();
+    
+    cout << x + 1 << " " << y + 1;
     return 0;
 }
