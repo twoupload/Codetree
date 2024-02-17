@@ -40,8 +40,10 @@ int main()
     for(i = 1; i < cnt; i++) {
         if(dx[i] == 0 && dy[i] == 0) {
             cout << i;
-            break;
+            return 0;
         }
     }
+
+    cout << -1;
     return 0;
 }
