@@ -60,9 +60,6 @@ int main()
         }
     }
 
-
-    for(int i = 0; i <= t; i++) {
-        cout << dy[i] << " " << dx[i] << endl;
-    }
+    cout << dy[t] << " " << dx[t];
     return 0;
 }
