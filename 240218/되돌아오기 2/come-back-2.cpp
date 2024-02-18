@@ -36,9 +36,10 @@ int main()
 
         if(x == 0 && y == 0) {
             cout << i + 1;
-            break;
+            return 0;
         }
     }
 
+    cout << -1;
     return 0;
 }
