@@ -21,7 +21,7 @@ int f(int x, int y)
         if(isRange(nx, ny) && a[nx][ny] == 1) cnt++;
     }
 
-    if(cnt >= 3) return 1;
+    if(cnt == 3) return 1;
     else return 0;
 }
 
