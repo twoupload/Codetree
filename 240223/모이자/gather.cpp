@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, minn = 99999;
+int n, minn = 1234567;
 int a[101], d[101];
 
 int main() {
