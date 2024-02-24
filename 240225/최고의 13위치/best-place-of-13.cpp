@@ -13,13 +13,14 @@ int main() {
 
     for(i = 1; i <= n; i++) {
         for(j = 1; j + 2 <= n; j++) {
+            cnt = 0;
             for(k = j; k <= j + 2; k++) {
                 if(a[i][k] == 1) cnt++;
             }
 
             if(maxx < cnt) {
                 maxx = cnt;
-                cnt = 0;
+                //cnt = 0;
             }
         }
     }
