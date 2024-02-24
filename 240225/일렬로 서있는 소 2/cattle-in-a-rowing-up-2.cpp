@@ -6,10 +6,6 @@ int n, ai, cnt;
 int i, j, k;
 
 bool isValue(int x, int y, int z) {
-    return x < y && y < z;
-}
-
-bool isIndex(int x, int y, int z) {
     return x <= y && y <= z;
 }
 
