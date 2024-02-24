@@ -20,9 +20,9 @@ int main() {
     }
 
     for(i = 1; i <= n; i++) {
-        for(j = 1; j <= n; j++) {
-            for(k = 1; k <= n; k++) {
-                if(isIndex(i,j,k) && isValue(a[i],a[j],a[k])) {
+        for(j = i + 1; j <= n; j++) {
+            for(k = j + 1; k <= n; k++) {
+                if(isValue(a[i],a[j],a[k])) {
                     cnt++;
                 }
             }
