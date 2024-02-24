@@ -20,7 +20,6 @@ int main() {
 
             if(maxx < cnt) {
                 maxx = cnt;
-                //cnt = 0;
             }
         }
     }
