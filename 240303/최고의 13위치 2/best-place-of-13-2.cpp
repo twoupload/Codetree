@@ -18,10 +18,12 @@ int main() {
     for(i = 1; i <= n; i++) {
         for(j = 1; j <= n - 2; j++) {
             int temp = 0;
+            int cnt = -9999;
             for(k = j; k <= j + 2; k++) {
                 if(a[i][k] == 1) temp++;
             }
-            v.push_back(temp);
+            if(cnt < temp) cnt = temp;
+            v.push_back(cnt);
         }
     }
 
