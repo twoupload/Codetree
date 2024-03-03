@@ -1,41 +1,38 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
 using namespace std;
 
-int n, maxx = -9999;
-int i,j,k;
-int a[25][25];
-vector<int> v;
-
 int main() {
+    int n;
     cin >> n;
 
-    for(int i = 1; i <= n; i++) {
-        for(int j = 1; j <= n; j++) {
-            cin >> a[i][j];
+    vector<vector<int>> arr(n, vector<int>(n));
+
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
+            cin >> arr[i][j];
         }
     }
 
-    for(i = 1; i <= n; i++) {
-        int cnt = -9999;
-        for(j = 1; j <= n - 2; j++) {
-            int temp = 0;
-            for(k = j; k <= j + 2; k++) {
-                if(a[i][k] == 1) temp++;
+    int max_cnt = 0;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n - 2; j++) {
+            for(int k = 0; k < n; k++) {
+                for(int l = 0; l < n - 2; l++) {
+                    if(i == k && abs(j - l) <= 2) {
+                        continue;
+                    }
+
+                    int cnt1 = arr[i][j] + arr[i][j + 1] + arr[i][j + 2];
+                    int cnt2 = arr[k][l] + arr[k][l + 1] + arr[k][l + 2];
+                    max_cnt = max(max_cnt, cnt1 + cnt2);
+                }
             }
-            if(cnt < temp) cnt = temp;
-        }
-        v.push_back(cnt);
-    }
-
-    for(i = 0; i < v.size(); i++) {
-        for(j = i + 1; j < v.size(); j++) {
-            if(maxx < v[i] + v[j]) {
-                maxx = v[i] + v[j];
-            }
         }
     }
-    
-    cout << maxx;
 
+    cout << max_cnt;
     return 0;
 }
