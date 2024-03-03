@@ -16,7 +16,7 @@ int main() {
     }
 
     for(i = 1; i <= n; i++) {
-        for(j = 1; j <= n; j++) {
+        for(j = 1; j <= n - 2; j++) {
             int temp = 0;
             for(k = j; k <= j + 2; k++) {
                 if(a[i][k] == 1) temp++;
@@ -25,14 +25,14 @@ int main() {
         }
     }
 
-    for(i = 0; i < v.size() - 1; i++) {
-        for(j = i + 1; j < n; j++) {
+    for(i = 0; i < v.size(); i++) {
+        for(j = i + 1; j < v.size(); j++) {
             if(maxx < v[i] + v[j]) {
                 maxx = v[i] + v[j];
             }
         }
     }
-
+    
     cout << maxx;
     return 0;
 }
