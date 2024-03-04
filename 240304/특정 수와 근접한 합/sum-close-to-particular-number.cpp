@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, s, num, i, j, k;
+int n, s, num, i, j, k, minn = 99999;
 vector<int> v;
 vector<int> vv;
 
@@ -26,9 +26,13 @@ int main() {
         }
     }
 
-    int minn = *min_element(vv.begin(), vv.end());
+   
+    for(i = 0; i < vv.size(); i++) {
+        if(minn > vv[i]) {
+            minn = vv[i];
+        }
+    }
 
     cout << minn;
-    
     return 0;
 }
