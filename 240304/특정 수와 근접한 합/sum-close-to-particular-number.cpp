@@ -22,7 +22,7 @@ int main() {
                     cnt += v[k];
                 }
             }
-            vv.push_back(abs(20 - cnt));
+            vv.push_back(abs(s - cnt));
         }
     }
 
