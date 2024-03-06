@@ -6,7 +6,7 @@ int n, k, i, j, cnt = 0, maxx = -99999;
 int a[MAX];
 
 bool isRange(int minNum, int maxNum) {
-    return minNum > 0 && maxNum <= cnt;
+    return minNum >= 0 && maxNum <= MAX;
 }
 
 int main() {
