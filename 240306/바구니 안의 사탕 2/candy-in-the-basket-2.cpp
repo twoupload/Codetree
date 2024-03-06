@@ -18,7 +18,7 @@ int main() {
 
         if(cnt < w) cnt = w;
 
-        a[w] = g;
+        a[w] += g;
     }
 
     for(i = 1; i <= cnt; i++) {
