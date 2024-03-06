@@ -1,35 +1,37 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-
+#define MAX 1234567
 using namespace std;
 
+int n, k, i, j, cnt = 0, maxx = -99999;
+int a[MAX];
+
+bool isRange(int minNum, int maxNum) {
+    return minNum > 0 && maxNum <= cnt;
+}
+
 int main() {
-    int N, K;
-    cin >> N >> K;
+    cin >> n >> k;
 
-    vector<int> candies(201, 0);  // 사탕의 개수를 저장할 벡터
+    for(i = 0; i < n; i++) {
+        int g, w;
+        cin >> g >> w;
 
-    for (int i = 0; i < N; i++) {
-        int candy, location;
-        cin >> candy >> location;
-        candies[location] += candy;  
+        if(cnt < w) cnt = w;
+
+        a[w] += g;
     }
 
-    vector<int> prefix_sum(201, 0);  // 각 위치까지의 누적 합을 저장할 벡터
-    prefix_sum[0] = candies[0];
-    for (int i = 1; i <= 200; i++) {
-        prefix_sum[i] = prefix_sum[i - 1] + candies[i];
+    for(i = 1; i <= cnt; i++) {
+        int temp = 0;
+        if(isRange(i - k, i + k)) {
+            for(j = i - k; j <= i + k; j++) {
+                temp += a[j];
+            }
+
+            if(maxx < temp) maxx = temp;
+        }
     }
-
-    // 각 위치에서 [c-K, c+K] 구간의 사탕 개수를 계산하여 최대값을 찾습니다.
-    int max_candy = 0;
-    for (int c = K; c <= 100 + K; c++) {
-        int temp = prefix_sum[min(200, c + K)] - ((c - K - 1 >= 0) ? prefix_sum[c - K - 1] : 0);
-        max_candy = max(max_candy, temp);
-    }
-
-    cout << max_candy;
-
+    
+    cout << maxx;
     return 0;
 }
