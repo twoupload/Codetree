@@ -1,88 +1,33 @@
-#include <bits/stdc++.h>
+#include <iostream>
+
 using namespace std;
 
 int n;
-int a1,b1,c1;
-int a2,b2,c2;
-
-int t1[5], t2[5], t3[5];
-string num[5], num2[5];
-
-void tempering(int x, int sw) {
-    int tt[5] = {0,0,0,0,0};
-    if(x - 2 == -1) {
-        tt[0] = n - 1;
-        tt[1] = n;
-        tt[2] = x;
-        tt[3] = x + 1;
-        tt[4] = x + 2;
-    }
-    else if(x - 2 == 0) {
-        tt[0] = n;
-        tt[1] = x - 1;
-        tt[2] = x;
-        tt[3] = x + 1;
-        tt[4] = x + 2;
-    }
-    else {
-        tt[0] = x - 2;
-        tt[1] = x - 1;
-        tt[2] = x;
-        tt[3] = x + 1;
-        tt[4] = x + 2;
-    }
-
-    if(sw == 1) {
-        for(int i = 0; i < 5; i++) {
-            t1[i] = tt[i];
-        }
-    }
-    else if(sw == 2) {
-        for(int i = 0; i < 5; i++) {
-            t2[i] = tt[i];
-        }
-    }
-    else {
-        for(int i = 0; i < 5; i++) {
-            t3[i] = tt[i];
-        }
-    }
-}
-
-void getN(int a, int b, int c, int tNum) {
-    tempering(a, 1);
-    tempering(b, 2);
-    tempering(c, 3);
-
-    if(tNum == 1) {
-        for(int i = 0; i < 5; i++) {
-            num[i] = to_string(t1[i]) + to_string(t2[i]) + to_string(t3[i]);
-        }
-    }
-    else {
-        for(int i = 0; i < 5; i++) {
-            num2[i] = to_string(t1[i]) + to_string(t2[i]) + to_string(t3[i]);
-        }
-    }
-}
+int a, b, c;
+int a2, b2, c2;
 
 int main() {
+    // 입력
     cin >> n;
+    cin >> a >> b >> c;
+	cin >> a2 >> b2 >> c2;
     
-    cin >> a1 >> b1 >> c1;
-    cin >> a2 >> b2 >> c2;
-
-    getN(a1,b1,c1, 1);
-    getN(a2,b2,c2, 2);
-
+    // 모든 조합을 다 만들어 봅니다.
     int cnt = 0;
-
-    for(int i = 0; i < 5; i++) {
-        for(int j = 0; j < 5; j++) {
-            if(num[i] == num2[j]) cnt++;
-        }
-    }
-
-    cout << 250 - cnt;
+    for(int i = 1; i <= n; i++)
+        for(int j = 1; j <= n; j++)
+            for(int k = 1; k <= n; k++) {
+                // 모든 자리가 주어진 첫 조합과의 거리가 2 이내인지 확인합니다.
+                if((abs(a - i) <= 2 || abs(a - i) >= n - 2) && (abs(b - j) <= 2 || abs(b - j) >= n - 2) && 
+                   (abs(c - k) <= 2 || abs(c - k) >= n - 2))
+                    cnt++;
+				
+				// 모든 자리가 주어진 두번째 조합과의 거리가 2 이내인지 확인합니다.
+                else if((abs(a2 - i) <= 2 || abs(a2 - i) >= n - 2) && (abs(b2 - j) <= 2 || abs(b2 - j) >= n - 2) && 
+                   (abs(c2 - k) <= 2 || abs(c2 - k) >= n - 2))
+                    cnt++;
+            }
+    
+    cout << cnt;
     return 0;
 }
