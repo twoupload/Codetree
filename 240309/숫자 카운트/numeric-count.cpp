@@ -1,60 +1,60 @@
 #include <iostream>
-#include <vector>
-#include <string>
+
+#define MAX_N 10
 
 using namespace std;
 
 int n;
-vector<int> possible(987);
-
-bool check(int num, int q, int s, int b) {
-    int strike = 0, ball = 0;
-    vector<int> query(3), number(3);
-
-    for (int i = 0; i < 3; i++) {
-        query[i] = q % 10;
-        number[i] = num % 10;
-        q /= 10;
-        num /= 10;
-    }
-
-    for (int i = 0; i < 3; i++) {
-        if (query[i] == number[i]) strike++;
-        for (int j = 0; j < 3; j++) {
-            if (i != j && query[i] == number[j]) ball++;
-        }
-    }
-
-    if (strike == s && ball == b) return true;
-    return false;
-}
+int a[MAX_N], b[MAX_N], c[MAX_N];
 
 int main() {
+    // 입력
     cin >> n;
-
-    for (int i = 123; i <= 987; i++) {
-        int x = i / 100;
-        int y = (i / 10) % 10;
-        int z = i % 10;
-        if (x == y || y == z || z == x || y == 0 || z == 0) continue;
-        possible[i] = 1;
-    }
-
-    for (int i = 0; i < n; i++) {
-        int num, s, b;
-        cin >> num >> s >> b;
-
-        for (int j = 123; j <= 987; j++) {
-            if (possible[j] && !check(j, num, s, b)) possible[j] = 0;
-        }
-    }
-
-    int count = 0;
-    for (int i = 123; i <= 987; i++) {
-        if (possible[i]) count++;
-    }
-
-    cout << count << endl;
-
+	for(int i = 0; i < n; i++)
+    	cin >> a[i] >> b[i] >> c[i];
+    
+    // 모든 숫자를 다 만들어 봅니다. (백의 자리수가 i, 십의 자리수가 j, 일의 자리수가 k)
+    int cnt = 0;
+    for(int i = 1; i <= 9; i++)
+        for(int j = 1; j <= 9; j++)
+            for(int k = 1; k <= 9; k++) {
+				// 같은 수가 있는지 확인합니다.
+				if(i == j || j == k || k == i)
+					continue;
+				
+				// 해당 숫자가 정답일때, 모든 입력에 대해 올바른 답이 나왔는지 확인합니다.
+				bool successed = true;
+				for(int q = 0; q < n; q++) {
+					// x : a[q]의 백의 자릿수, y : 십의 자릿수, z : 일의 자릿수
+					int x = a[q] / 100;
+					int y = a[q] / 10 % 10;
+					int z = a[q] % 10;
+					// cnt1 : 1번 카운트, cnt2 : 2번 카운트
+					int cnt1 = 0, cnt2 = 0;
+					if(x == i)
+						cnt1++;
+					if(y == j)
+						cnt1++;
+					if(z == k)
+						cnt1++;
+					if(x == j || x == k)
+						cnt2++;
+					if(y == i || y == k)
+						cnt2++;
+					if(z == i || z == j)
+						cnt2++;
+					
+					// 만약 카운트 수가 다르다면 해당 숫자는 정답이 될 수 없습니다.
+					if(cnt1 != b[q] || cnt2 != c[q]) {
+						successed = false;
+						break;
+					}
+				}
+				
+				if(successed) cnt++;
+            }
+    
+    cout << cnt;
+	
     return 0;
 }
