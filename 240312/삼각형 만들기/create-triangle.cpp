@@ -1,40 +1,39 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <cstdlib>
+
+#define MAX_N 100
+
 using namespace std;
 
+int n;
+int x[MAX_N], y[MAX_N];
+
+// 삼각형의 넓이에 2를 곱한 값을 반환합니다.
+int area(int i, int j, int k) {
+    return abs((x[i] * y[j] + x[j] * y[k] + x[k] * y[i]) - 
+               (x[j] * y[i] + x[k] * y[j] + x[i] * y[k]));
+}
+
 int main() {
-    int N;
-    cin >> N;
-
-    vector<pair<int, int>> points(N);
-    for (int i = 0; i < N; ++i) {
-        cin >> points[i].first >> points[i].second;
-    }
-
-    int maxArea = 0;
-    // 모든 점의 조합을 순회하며 삼각형의 넓이를 계산합니다.
-    for (int i = 0; i < N; ++i) {
-        for (int j = 0; j < N; ++j) {
-            for (int k = 0; k < N; ++k) {
-                // i, j, k가 서로 다르고, x축 또는 y축에 평행한 변을 가지는지 확인합니다.
-                if (i != j && i != k && j != k) {
-                    // i와 j가 x축에 평행하고, i와 k가 y축에 평행한 경우
-                    if (points[i].first == points[j].first && points[i].second == points[k].second) {
-                        int area = abs(points[i].first - points[k].first) * abs(points[i].second - points[j].second);
-                        maxArea = max(maxArea, area);
-                    }
-                    // i와 k가 x축에 평행하고, i와 j가 y축에 평행한 경우
-                    else if (points[i].first == points[k].first && points[i].second == points[j].second) {
-                        int area = abs(points[i].first - points[j].first) * abs(points[i].second - points[k].second);
-                        maxArea = max(maxArea, area);
-                    }
-                }
-            }
-        }
-    }
-
-    cout << maxArea << endl; // 최대 넓이에 2를 곱하지 않고, 올바른 넓이를 출력합니다.
-
+    // 입력
+    cin >> n;
+    
+    for(int i = 0; i < n; i++)
+        cin >> x[i] >> y[i];
+    
+    // 3개의 점을 모두 골라보면서
+    // 조건을 만족하는 경우 중
+    // 최대 넓이를 계산합니다.
+    int max_area = 0;
+    for(int i = 0; i < n; i++)
+        for(int j = i + 1; j < n; j++)
+            for(int k = j + 1; k < n; k++)
+                // x값이 같은 쌍이 있으며, y값 역시 같은 쌍이 있는 경우에만
+                // 최대 넓이를 계산합니다.
+                if((x[i] == x[j] || x[i] == x[k] || x[j] == x[k]) &&
+                   (y[i] == y[j] || y[i] == y[k] || y[j] == y[k]))
+                    max_area = max(max_area, area(i, j, k));
+    
+    cout << max_area;
     return 0;
 }
