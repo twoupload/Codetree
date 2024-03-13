@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, i, j;
-int x, y, totalX, totalY;
-int maxx = INT_MIN;
+int n, i, j, k;
+int timeTable[10001];
+
 
 struct S {
     int start, end;
@@ -11,24 +11,41 @@ struct S {
 
 S s[101];
 
+void arrClear() {
+    for(int i = 0; i < 10000; i++) {
+        timeTable[i] = 0;
+    }
+}
+
+int cal() {
+    int cnt = 0;
+    for(int i = 0; i < 10000; i++) {
+        if(timeTable[i] != 0) cnt++;
+    }
+    return cnt;
+}
+
+
 int main() {
     cin >> n;
 
     for(i = 0; i < n; i++) {
-        cin >> x >> y;
-        s[i].start = x, s[i].end = y;
-        totalX += x, totalY += y;
+        cin >> s[i].start >> s[i].end;
     }
-
+    
+    int maxx = INT_MIN;
     for(i = 0; i < n; i++) {
-       int nowX, nowY, runningTIme;
-       nowX = totalX - s[i].start, nowY = totalY - s[i].end;
-
-       runningTIme = nowY - nowX;
-
-       maxx = max(maxx, runningTIme);
+        
+        arrClear();
+        for(j = 0; j < n; j++) {
+            if(j == i) continue;
+            for(k = s[j].start; k < s[j].end; k++) {
+                timeTable[k] += 1;
+            }
+        }
+        maxx = max(maxx, cal());
     }
 
-    cout << maxx - 1;
+    cout << maxx;
     return 0;
 }
