@@ -10,7 +10,7 @@ struct BOMB {
 BOMB bomb[100];
 
 bool isRange(int i, int j) {
-    return abs(bomb[i].dis - bomb[j].dis) <= 3;
+    return abs(bomb[i].dis - bomb[j].dis) <= n;
 }
 
 int main() {
