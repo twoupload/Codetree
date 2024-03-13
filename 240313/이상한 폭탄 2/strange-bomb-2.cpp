@@ -1,39 +1,27 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-int n, k;
-
-struct BOMB {
-    int num, dis;
-};
-
-BOMB bomb[100];
-
-bool isRange(int i, int j) {
-    return abs(bomb[i].dis - bomb[j].dis) <= n;
-}
-
 int main() {
-    cin >> n >> k;
+    int N, K;
+    cin >> N >> K;
 
-    for(int i = 0; i < n; i++) {
-        cin >> bomb[i].num;
-        bomb[i].dis = i;
+    vector<int> bombs(N);
+    for(int i = 0; i < N; i++) {
+        cin >> bombs[i];
     }
 
-    int maxx = INT_MIN;
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < n; j++) {
-            if(i == j) continue;
-            if(bomb[i].num == bomb[j].num && isRange(i, j)) {
-                maxx = max(maxx, bomb[i].num);
+    int maxNum = -1;
+    for(int i = 0; i < N; i++) {
+        for(int j = i + 1; j < N; j++) {
+            // 같은 번호를 가진 폭탄이고 거리가 K 이내인 경우
+            if(bombs[i] == bombs[j] && abs(i - j) <= K) {
+                maxNum = max(maxNum, bombs[i]);
             }
         }
     }
 
-    if(maxx == INT_MIN) cout << -1;
-    else {
-        cout << maxx;
-    }
+    cout << maxNum << endl;
     return 0;
 }
