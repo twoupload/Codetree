@@ -33,6 +33,8 @@ int main() {
         }
     }
 
-    cout << cnt;
+    if(cnt < 0) cout << 0;
+    else cout << cnt;
+    
     return 0;
 }
