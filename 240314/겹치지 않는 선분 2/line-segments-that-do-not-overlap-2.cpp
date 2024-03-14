@@ -1,45 +1,38 @@
 #include <bits/stdc++.h>
+#define MAX 1000000
 using namespace std;
 
-struct Segment {
-    int start, end;
+int n;
+
+struct LINE 
+{
+    int x, y;
 };
 
-bool compareSegment(const Segment& a, const Segment& b) {
-    if (a.start == b.start) return a.end < b.end;
-    return a.start < b.start;
-}
+LINE line[100];
 
 int main() {
-    int N;
-    cin >> N;
+    cin >> n;
 
-    vector<Segment> segments(N);
-    for (int i = 0; i < N; ++i) {
-        cin >> segments[i].start >> segments[i].end;
-        if (segments[i].start > segments[i].end) {
-            swap(segments[i].start, segments[i].end);
+    for(int i = 0; i < n; i++) {
+        cin >> line[i].x >> line[i].y;
+    }
+
+    int cnt = n;
+    for(int i = 0; i < n - 1; i++) {
+        for(int j = i + 1; j < n; j++) {
+            if(line[j].x < line[i].x) {
+                if(line[j].y > line[i].y) cnt = cnt - 2; 
+            }
+            else if(line[j].x == line[i].x) {
+                if(line[j].y == line[i].y) cnt = cnt - 2;
+            }
+            else {
+                if(line[j].y <= line[i].y) cnt = cnt - 2;
+            }
         }
     }
 
-    sort(segments.begin(), segments.end(), compareSegment);
-
-    int currentEnd = segments[0].end;
-    bool isConnected = true;
-
-    for (int i = 1; i < N; ++i) {
-        if (segments[i].start > currentEnd) {
-            isConnected = false;
-            break;
-        }
-        currentEnd = max(currentEnd, segments[i].end);
-    }
-
-    if(isConnected) {
-        cout << 0;
-    } else {
-        cout << 1;
-    }
-
+    cout << cnt;
     return 0;
 }
