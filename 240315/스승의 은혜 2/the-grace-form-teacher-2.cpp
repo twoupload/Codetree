@@ -1,30 +1,39 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
 
-int n, b;
-int p[1000];
-int i, j;
 int main() {
-    cin >> n >> b;
+    int N, B;
+    cin >> N >> B;
 
-    for(i = 0; i < n; i++) {
-        cin >> p[i];
+    vector<int> prices(N);
+    for (int i = 0; i < N; ++i) {
+        cin >> prices[i];
     }
 
-    int maxx = 0;
-    for(i = 0; i < n; i++) {
-        int cnt = 0;
-        for(j = 0; j < n; j++) {
-            if(i == j) p[j] = p[j] / 2;
+    // 선물 가격을 오름차순으로 정렬합니다.
+    sort(prices.begin(), prices.end());
 
-            b = b - p[j];
+    int count = 0; // 선물할 수 있는 학생 수
+    bool usedCoupon = false; // 할인 쿠폰 사용 여부
 
-            if(b >= 0) cnt++;
+    for (int i = 0; i < N; ++i) {
+        if (B >= prices[i]) {
+            B -= prices[i]; // 예산에서 선물 가격을 뺍니다.
+            count++; // 선물한 학생 수를 증가시킵니다.
+        } else if (!usedCoupon && B >= prices[i] / 2) {
+            B -= prices[i] / 2; // 할인 쿠폰을 사용하여 예산에서 반값을 뺍니다.
+            count++; // 선물한 학생 수를 증가시킵니다.
+            usedCoupon = true; // 할인 쿠폰을 사용했다고 표시합니다.
+        } else {
+            // 더 이상 선물을 살 수 없으면 반복문을 종료합니다.
+            break;
         }
-
-        maxx = max(maxx, cnt);
     }
 
-    cout << maxx;
+    cout << count; // 선물할 수 있는 최대 학생 수를 출력합니다.
+
     return 0;
 }
