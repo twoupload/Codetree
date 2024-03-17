@@ -1,55 +1,105 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+
+#define MAX_D 1000
+#define MAX_N 50
 
 using namespace std;
 
-int main() {
-    int N, M, D, S;
-    cin >> N >> M >> D >> S;
-
-    vector<vector<pair<int, int>>> cheeseLogs(M + 1); // 치즈별로 먹은 사람과 시간을 저장
-    while (D--) {
+// 치즈를 먹은 정보를 나타내는 클래스 선언
+class Info1{
+    public:
         int p, m, t;
-        cin >> p >> m >> t;
-        cheeseLogs[m].push_back({p, t});
-    }
+        Info1(int p, int m, int t) {
+            this->p = p;
+            this->m = m;
+            this->t = t;
+        }
+		Info1(){}
+};
 
-    vector<pair<int, int>> sickTimes; // 아픈 사람과 그 시간을 저장
-    while (S--) {
+// 치즈를 먹은 정보를 나타내는 클래스 선언
+class Info2{
+    public:
         int p, t;
-        cin >> p >> t;
-        sickTimes.push_back({p, t});
-    }
+        Info2(int p, int t) {
+            this->p = p;
+            this->t = t;
+        }
+		Info2(){}
+};
 
-    int maxNeeded = 0; // 필요한 약의 최대 개수
+Info1 info1[MAX_D];
+Info2 info2[MAX_N];
 
-    for (int m = 1; m <= M; ++m) {
+int n, m, d, s;
+
+int main() {
+    // 입력
+    cin >> n >> m >> d >> s;
+
+    for(int i = 0; i < d; i++) {
+		int p, m, t;
+		cin >> p >> m >> t;
+		info1[i] = Info1(p, m, t);
+	}
+	
+	for(int i = 0; i < s; i++) {
+		int p, t;
+		cin >> p >> t;
+        info2[i] = Info2(p, t);
+	}
+
+    int ans = 0;
+    
+    // 하나의 치즈가 상했을 때 필요한 약의 수의 최댓값을 구합니다.
+    for(int i = 1; i <= m; i++) {
+        // i번째 치즈가 상했을 때 필요한 약의 수를 구합니다.
+
+        // 우선 i번째 치즈가 상했다고 가정할 때 모순이 발생하지 않는지 확인합니다.
+        // time배열을 만들어 각 사람이 언제 치즈를 먹었는지 저장합니다.
+        int time[MAX_N + 1] = {};
+        for(int j = 0; j < d; j++) {
+            // i번째 치즈에 대한 정보가 아닌 경우 넘어갑니다.
+            if(info1[j].m != i)
+                continue;
+
+            // person이 i번째 치즈를 처음 먹었거나
+            // 이전보다 더 빨리 먹게 된 경우 time배열을 갱신합니다.
+            int person = info1[j].p;
+            if(time[person] == 0)
+                time[person] = info1[j].t;
+            else if(time[person] > info1[j].t)
+                time[person] = info1[j].t;
+        }
+
+        // possible : i번째 치즈가 상했을 수 있으면 true, 아니면 false
         bool possible = true;
-        int count = 0;
-        vector<bool> eaten(N + 1, false); // 해당 사람이 치즈를 먹었는지 여부
 
-        for (auto &log : cheeseLogs[m]) { // 해당 치즈를 먹은 모든 기록 확인
-            for (auto &sick : sickTimes) { // 모든 아픈 사람의 기록 확인
-                if (log.first == sick.first && log.second >= sick.second) {
-                    // 아픈 사람이 해당 치즈를 먹었지만, 아프기 전에 먹지 않았다면 이 치즈는 상한 치즈가 아님
-                    possible = false;
-                    break;
-                }
-            }
-            if (!possible) break;
-            if (!eaten[log.first]) { // 이 사람이 치즈를 먹었다면
-                eaten[log.first] = true;
-                count++; // 치즈를 먹은 사람 수 증가
+        for(int j = 0; j < s; j++) {
+            // person이 i번째 치즈를 먹지 않았거나
+            // i번째 치즈를 먹은 시간보다 먼저 아픈 경우 모순이 생깁니다.
+            int person = info2[j].p;
+            if(time[person] == 0)
+                possible = false;
+            if(time[person] >= info2[j].t)
+                possible = false;
+        }
+
+        // 만약 i번째 치즈가 상했을 가능성이 있다면, 몇 개의 약이 필요한지 확인합니다.
+        int pill = 0;
+        if(possible) {
+            // 한번이라도 i번째 치즈를 먹은 적이 있다면, 약이 필요합니다.
+            for(int j = 1; j <= n; j++) {
+                if(time[j] != 0)
+                    pill++;
             }
         }
 
-        if (possible) {
-            maxNeeded = max(maxNeeded, count); // 가능한 상한 치즈라면, 필요한 약의 최대 개수 업데이트
-        }
+        ans = max(ans, pill);
     }
 
-    cout << maxNeeded << endl; // 필요한 약의 최대 개수 출력
-
+    cout << ans;
+    
     return 0;
 }
