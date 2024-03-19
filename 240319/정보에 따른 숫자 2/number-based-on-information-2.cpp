@@ -1,5 +1,4 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
 int t, a, b, x;
@@ -7,6 +6,20 @@ char c;
 
 vector<int> indexN;
 vector<int> indexS;
+
+// 가장 가까운 거리 찾기
+int findClosestDistance(vector<int>& indexes, int position) {
+    auto lower = lower_bound(indexes.begin(), indexes.end(), position);
+    int dist = INT_MAX;
+    if (lower != indexes.end()) {
+        dist = min(dist, abs(*lower - position));
+    }
+    if (lower != indexes.begin()) {
+        --lower;
+        dist = min(dist, abs(*lower - position));
+    }
+    return dist;
+}
 
 int main() {
     cin >> t >> a >> b;
@@ -22,14 +35,15 @@ int main() {
         }
     }
 
+    sort(indexS.begin(), indexS.end());
+    sort(indexN.begin(), indexN.end());
+
     int cnt = 0;
     for(int i = a; i <= b; i++) {
-        for(int j = 0; j < indexS.size(); j++) {
-            for(int k = 0; k <indexN.size(); k++) {
-                int d1 = abs(indexS[j] - i);
-                int d2 = abs(indexN[k] - i);
-                if(d1 <= d2) cnt++;
-            }
+        int d1 = findClosestDistance(indexS, i);
+        int d2 = findClosestDistance(indexN, i);
+        if(d1 <= d2) {
+            cnt++;
         }
     }
 
