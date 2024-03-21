@@ -1,47 +1,46 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
+
+#define MAX_N 100
+#define MAX_H 1000
+
 using namespace std;
 
-// 빙산 덩어리 개수를 계산하는 함수
-int countIcebergGroups(const vector<int>& heights, int waterLevel) {
-    int count = 0;
-    bool isPreviousSubmerged = true; // 이전 빙산이 잠겼는지 여부
+int n;
 
-    for (int height : heights) {
-        if (height > waterLevel) {
-            // 현재 빙산이 물 위에 있는 경우
-            if (isPreviousSubmerged) {
-                // 이전 빙산이 잠겼었다면 새로운 덩어리 시작
-                count++;
-                isPreviousSubmerged = false;
-            }
-        } else {
-            // 현재 빙산이 잠긴 경우
-            isPreviousSubmerged = true;
-        }
-    }
-
-    return count;
-}
+int h[MAX_N];
 
 int main() {
-    int N;
-    cin >> N;
+    // 입력
+    cin >> n;
 
-    vector<int> heights(N);
-    for (int i = 0; i < N; i++) {
-        cin >> heights[i];
-    }
+    for(int i = 0; i < n; i++)
+        cin >> h[i];
 
-    int maxGroups = 0;
-    // 가능한 모든 해수면 높이에 대해 검사
-    for (int waterLevel = 1; waterLevel <= 1000; waterLevel++) {
-        int groups = countIcebergGroups(heights, waterLevel);
-        maxGroups = max(maxGroups, groups);
-    }
+    int ans = 0;
 
-    cout << maxGroups << endl;
+    // 각 높이에 대해
+    // 빙산 덩어리의 개수의 최댓값을 구합니다.
+    for(int i = 1; i < MAX_H; i++) {
+		// 물의 높이가 i일때 빙산 덩어리의 개수를 구합니다.
+        int cnt = 0;
 
+        // 가장 왼쪽에 빙산이 있는 경우의 예외를 처리해줍니다.
+        if(h[0] > i)
+            cnt++;
+
+        // 바로 앞 블록은 해수면에 잠겨있고
+        // 자기 자신의 블록은 해수면 위에 떠있는 경우,
+        // 자기 자신 블록부터 시작하는 빙산이 하나 더 있습니다.
+        for(int j = 1; j < n; j++) {
+            if(h[j] > i && h[j - 1] <= i)
+                cnt++;
+        }
+
+        ans = max(ans, cnt);
+	}
+    
+    cout << ans;
+	
     return 0;
 }
