@@ -1,20 +1,25 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
 
+int a, b, c;
+
 int main() {
-    int A, B, C;
-    cin >> A >> B >> C;
+    cin >> a >> b >> c;
 
-    int maxVal = (C / B) * B; // B로 C를 최대한 채운 값
-    int remainder = C % B; // B로 채운 후 남은 값
+    int maxx = INT_MIN;
 
-    // 남은 값에 A를 최대한 더하기
-    while (maxVal + A <= C) {
-        maxVal += A;
+    for(int i = 0; i <= c / a; i++) {
+        int temp = 0;
+        for(int j = 0; j <= c / b; j++) {
+            
+            temp = i * a + j * b;
+
+            if(temp <= c) {
+                maxx = max(maxx, temp);
+            }
+        }
     }
 
-    cout << maxVal << endl;
-
+    cout << maxx;
     return 0;
 }
