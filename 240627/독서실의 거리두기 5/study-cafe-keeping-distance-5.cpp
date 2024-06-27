@@ -14,9 +14,12 @@ int main() {
     int prevOccupied = -1;
 
     for (int i = 0; i < N; i++) {
-        if (seats[i] == '0') {
-            int distance = (prevOccupied == -1) ? i : i - prevOccupied - 1;
-            maxDistance = max(maxDistance, distance);
+        if (seats[i] == '1') {
+            if (prevOccupied == -1) {
+                maxDistance = 0;
+            } else {
+                maxDistance = max(maxDistance, i - prevOccupied - 1);
+            }
             prevOccupied = i;
         }
     }
@@ -25,7 +28,7 @@ int main() {
         maxDistance = max(maxDistance, N - prevOccupied - 1);
     }
 
-    cout << maxDistance + 1 << endl;
+    cout << maxDistance - 1 << endl;
 
     return 0;
 }
