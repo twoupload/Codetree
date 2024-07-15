@@ -39,12 +39,14 @@ int main() {
                 right++;
                 rcur++;
             }
-            // 줄어든 것과 늘어난 것을 비교해서 최대값 계산
-            maxx = max(maxx, max(left, right));
+
+            if(left != 0 && right != 0) {
+                maxx = max(maxx, max(left, right));
+            }
             
         }
     }
 
-    cout << maxx - 1;
+    cout << maxx;
     return 0;
 }
