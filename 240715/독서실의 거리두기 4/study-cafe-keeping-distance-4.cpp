@@ -1,52 +1,45 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <algorithm>
+
 using namespace std;
 
 int n;
-string sitting; // 좌석 현황
-int arr[110]; // 좌석을 표현할 배열
+string seat;
+
+int MinDist() {
+    int min_dist = n;
+    // 둘 다 1인 곳에 대해
+    // 모든 쌍을 조사하여, 그 중 가장 가까운 거리를 구합니다.
+    for(int i = 0; i < n; i++)
+        for(int j = i + 1; j < n; j++)
+            if(seat[i] == '1' && seat[j] == '1')
+                min_dist = min(min_dist, j - i);
+    
+    return min_dist;
+}
 
 int main() {
-    // 여기에 코드를 작성해주세요.
+    // 입력:
     cin >> n;
-    cin >> sitting;
+    cin >> seat;
     
-    int cnt = 0;
-    for(int i = 1; i <= n; i++) {
-        if(sitting[i] == '1') {
-            arr[cnt] = 1;
-            cnt++;
-        }
-        else {
-            arr[cnt] = 0;
-            cnt++;
-        }
-    }
-
-    int maxx = INT_MIN;
-    for(int i = 1; i <= n; i++) {
-        if(arr[i] == 1) continue;
-        else {
-            int left = 0, right = 0;
-            int lcur = i, rcur = i;
-
-            // 줄어들면서 값 계산
-            while(arr[lcur - 1] != 1 && lcur - 1 != 0) {
-                left++;
-                lcur--;
+    int ans = 0;
+    // 들어갈 위치를 일일이 정해보며
+    // 그 상황에서 가장 가까운 사람간의 거리를 구해
+    // 가능한 경우 중 최댓값을 계산합니다.
+    for(int i = 0; i < n; i++) 
+        for(int j = i + 1; j < n; j++) {
+            if(seat[i] == '0' && seat[j] == '0') {
+                // 비어있는 위치에 인원을 배치합니다.
+                seat[i] = seat[j] = '1';
+                // 가장 가까운 사람간의 거리를 구해 최댓값을 갱신해줍니다.
+                ans = max(ans, MinDist());
+                // 다시 채워졌던 값을 되돌려줍니다.
+                seat[i] = seat[j] = '0';
             }
-            // 늘어나면서 값 계산
-            while(arr[rcur + 1] != 1 && rcur + 1 != n + 1) {
-                right++;
-                rcur++;
-            }
-
-            if(left != 0 && right != 0) {
-                maxx = max(maxx, max(left, right));
-            }
-            
         }
-    }
 
-    cout << maxx;
+    cout << ans;
     return 0;
 }
