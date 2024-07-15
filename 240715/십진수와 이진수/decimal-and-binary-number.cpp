@@ -1,15 +1,13 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <bitset>
 using namespace std;
 
-int turnToBinary(int n) // 십진수를 이진수로 바꾸는 함수
+void turnToBinary(int n) // 십진수를 이진수로 바꾸는 함수
 {
-    if(n < 2) return n; // 바닥 조건
-
-
-    cout << n % 2;
-    return turnToBinary(n / 2);
+    bitset<9> binaryNum(n);
+    cout << binaryNum;
 }
 
 int main() {
