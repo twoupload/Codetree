@@ -33,7 +33,9 @@ int main() {
         cin >> arr[i]; // 각 돌에 적힌 숫자 입력
     }
 
-    int left = 1, right = *max_element(arr + 1, arr + n + 1); // 숫자 범위에 맞게 초기값 설정
+    // 최댓값의 범위를 돌에 있는 숫자들 중 최솟값과 최댓값으로 설정
+    int left = *min_element(arr + 1, arr + n + 1); 
+    int right = *max_element(arr + 1, arr + n + 1);
     int maximin = right; // 최악의 경우 최댓값을 선택해야 함
 
     while (left <= right) {
