@@ -24,7 +24,7 @@ int main() {
             first=num[j]-first;
             if(first<=0||first>n){
                 correct=false;        
-                //continue ----> 여기 이부분
+                continue
             }
             start++;
             real[start]=first;
