@@ -24,7 +24,7 @@ void turnToBinary(int n) // 십진수를 이진수로 바꾸는 함수
 
 int main() {
     string binary; // 기본 이진수
-    int num = 0; // 변환된 십진수
+    long long num = 0; // 변환된 십진수
 
     cin >> binary;
 
