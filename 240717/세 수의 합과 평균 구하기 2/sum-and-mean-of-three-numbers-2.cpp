@@ -8,7 +8,7 @@ int main() {
 
     cout << fixed;
     cout.precision(0);
-    cout << "avg " << (a + b + c) / 3;
+    cout << "avg " << (a + b + c) / 3 << endl;
     cout << "sum " << a + b + c;
     return 0;
 }
