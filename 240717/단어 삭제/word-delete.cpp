@@ -5,13 +5,12 @@ int main() {
     string word, w;
     cin >> word >> w;
 
-    int idx = word.find(w); 
-    while (idx != string::npos) {
-        word.erase(idx, w.size());
-        idx = word.find(w, idx); // 현재 위치부터 다시 탐색
+    size_t idx = 0; 
+    while ((idx = word.find(w, idx)) != string::npos) { 
+        word.erase(idx, w.length());
     }
 
-    cout << word; // 최종 결과 출력
+    cout << word; 
 
     return 0;
 }
