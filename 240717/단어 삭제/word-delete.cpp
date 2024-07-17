@@ -5,9 +5,9 @@ int main() {
     string word, w;
     cin >> word >> w;
 
-    size_t idx = 0; 
-    while ((idx = word.find(w, idx)) != string::npos) { 
-        word.erase(idx, w.length());
+    int idx = 0; 
+    while ((idx = word.find(w)) != string::npos) { 
+        word.erase(idx, w.size());
     }
 
     cout << word; 
