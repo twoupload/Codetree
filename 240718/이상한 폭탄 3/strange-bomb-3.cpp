@@ -28,7 +28,7 @@ int main() {
 
     int maxx = arr[0];
     int maxIdx = 0;
-    for(int i = 0; i < n; i++) {
+    for(int i = 0; i <= n; i++) {
         if(arr[i] >= maxx) {
             maxx = arr[i];
             maxIdx = i;
@@ -36,5 +36,6 @@ int main() {
     }
 
     cout << maxIdx;
+
     return 0;
 }
