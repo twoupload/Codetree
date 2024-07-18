@@ -35,7 +35,8 @@ int main() {
         }
     }
 
-    cout << maxIdx;
+    if(maxx == 0) cout << 0;
+    else cout << maxIdx;
 
     return 0;
 }
