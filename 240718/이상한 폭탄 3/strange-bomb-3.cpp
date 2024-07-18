@@ -16,8 +16,9 @@ int main() {
         v.push_back(num);
     }
 
-    for(int i = 0; i < n - 1; i++) {
-        for(int j = i + 1; j < n; j++) {
+    int idx = *max_element(v.begin(), v.end());
+    for(int i = 0; i <= n - 1; i++) {
+        for(int j = i + 1; j <= n; j++) {
             if(v[i] == v[j]) {
                 if(j - i <= k) {
                     arr[v[i]] += 1;
@@ -28,7 +29,7 @@ int main() {
 
     int maxx = arr[0];
     int maxIdx = 0;
-    for(int i = 0; i <= n; i++) {
+    for(int i = 0; i <= idx; i++) {
         if(arr[i] >= maxx) {
             maxx = arr[i];
             maxIdx = i;
