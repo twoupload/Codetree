@@ -4,11 +4,11 @@ using namespace std;
 
 int main() {
     // 여기에 코드를 작성해주세요.
-    int n, i;
+    int n, i = 1;
     cin >> n;
 
     int sum = 0;
-    while( i == n) {
+    while(i <= n) {
         sum += i;
         i++;
     }
