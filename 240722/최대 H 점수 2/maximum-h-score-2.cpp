@@ -18,12 +18,13 @@ int findMaxH(vector<int>& nums, int L) {
         int count = 0;
         int upgradesLeft = L;
 
-        for (int num : nums) {
-            if (num < h && upgradesLeft > 0) {
-                ++num; 
+        // 숫자를 변경할 때 가장 작은 숫자부터 변경하도록 수정
+        for (int i = 0; i < nums.size(); ++i) {
+            if (nums[i] < h && upgradesLeft > 0) {
+                ++nums[i]; 
                 --upgradesLeft;
             }
-            if (num >= h) {
+            if (nums[i] >= h) {
                 ++count;
             }
         }
