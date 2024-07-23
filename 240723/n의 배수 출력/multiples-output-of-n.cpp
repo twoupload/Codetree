@@ -8,7 +8,7 @@ int main() {
     cin >> n;
 
     for(int i = 1; i <= 15; i++) {
-        cout << 7 * i << " ";
+        cout << n * i << " ";
     }
     return 0;
 }
