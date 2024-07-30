@@ -8,6 +8,9 @@ int main() {
     int n;
     cin >> n;
 
+    cout << fixed;
+    cout.precision(1);
+
     int sum = 0;
     for(int i = 0; i < n; i++) {
         int nn;
@@ -18,7 +21,8 @@ int main() {
 
     double avr = 0.0;
     avr = (double)sum / n;
-    avr = round(avr * 10) / 10;
+    avr = (double)(round(avr * 10) / 10);
+
 
     if(avr >= 70.0) cout << avr << endl;
     else {
