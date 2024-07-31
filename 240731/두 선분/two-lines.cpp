@@ -8,7 +8,7 @@ int main() {
 
     if(x2 >= x3) {
         cout << "intersecting" << endl;
-    } else if (x4 >= x1) {
+    } else if (x4 <= x2) {
         cout << "intersecting" << endl;
     } else if (x3 <= x1 && x2 <= x4) {
         cout << "intersecting" << endl;
