@@ -4,7 +4,7 @@ using namespace std;
 int arr[201];
 
 void set(int n1, int n2) {
-    for(int i = n1; i <= n2; i++) {
+    for(int i = n1; i < n2; i++) {
         arr[i]++;
     }
 }
@@ -22,7 +22,7 @@ int main() {
         if(arr[i] != 0) cnt++;
     }
 
-    cout << cnt - 1 << endl;
+    cout << cnt << endl;
 
     return 0;
 }
