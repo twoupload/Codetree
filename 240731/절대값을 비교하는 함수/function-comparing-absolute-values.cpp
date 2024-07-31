@@ -12,7 +12,7 @@ int main() {
         cin >> n1 >> n2;
 
         if(abs(n1) < abs(n2)) cout << abs(n2) << endl;
-        else if (abs(n1) == abs(n2)) cout << abs(n1) <<< endl;
+        else if (abs(n1) == abs(n2)) cout << abs(n1) << endl;
         else cout << abs(n1) << endl;
     }
 
