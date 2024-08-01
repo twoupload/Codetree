@@ -9,7 +9,7 @@ int main() {
     cin >> n;
 
     int i = 1;
-    while(n < 200) {
+    while(n * i < 200) {
 
         if((n * i) % 10 == 0) {
             cout << n * i << " ";
