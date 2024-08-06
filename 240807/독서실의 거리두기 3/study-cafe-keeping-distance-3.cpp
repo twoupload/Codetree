@@ -1,43 +1,62 @@
 #include <iostream>
-#include <vector>
+#include <string>
 #include <algorithm>
+#include <climits>
 
 using namespace std;
 
+int n;
+string seats;
+
 int main() {
-    int N;
-    cin >> N;
-    string seats;
+    // 입력:
+    cin >> n;
     cin >> seats;
+    
+    // Step1. 최적의 위치 찾기
+    // 인접한 쌍들 중 가장 먼 1간의 쌍을 찾습니다.
+    int max_dist = 0;
+    int max_i, max_j;
+    for(int i = 0; i < n; i++) {
+        if(seats[i] == '1') {
+            for(int j = i + 1; j < n; j++)
+                if(seats[j] == '1') {
+                    // 1간의 쌍을 골랐을 때
+                    // 두 좌석간의 거리가 지금까지의 최적의 답 보다 더 좋다면
+                    // 값을 갱신해줍니다.
+                    if(j - i > max_dist) {
+                        max_dist = j - i;
 
-    vector<int> occupied_positions;
+                        // 이때, 두 좌석의 위치를 기억합니다.
+                        max_i = i;
+                        max_j = j;
+                    }
 
-    // 이미 차 있는 좌석의 위치를 저장
-    for (int i = 0; i < N; ++i) {
-        if (seats[i] == '1') {
-            occupied_positions.push_back(i);
+                    // 인접한 쌍을 찾았으므로 빠져나옵니다.
+                    break;
+                }
         }
     }
 
-    int max_distance = 0;
+    // Step2. 최적의 위치에 1을 놓습니다.
+    // 가장 먼 쌍의 위치 가운데에 놓으면 됩니다.
+    seats[(max_i + max_j) / 2] = '1';
 
-    // 두 사람 사이의 최대 거리를 계산
-    for (int i = 1; i < occupied_positions.size(); ++i) {
-        int distance = occupied_positions[i] - occupied_positions[i - 1];
-        max_distance = max(max_distance, distance);
+    // Step3. 이제 인접한 쌍들 중 가장 가까운 1간의 쌍을 찾습니다.
+    // 이때의 값이 답이 됩니다.
+    int ans = INT_MAX;
+    for(int i = 0; i < n; i++) {
+        if(seats[i] == '1') {
+            for(int j = i + 1; j < n; j++)
+                if(seats[j] == '1') {
+                    ans = min(ans, j - i);
+					
+					// 인접한 쌍을 찾았으므로 빠져나옵니다.
+                    break;
+                }
+        }
     }
 
-    // 거리의 절반을 계산하고, 추가적인 자리에서의 거리도 고려
-    max_distance = (max_distance - 1) / 2; // 1을 빼고 절반
-
-    // 첫 번째 자리와 첫 사람 사이의 거리
-    max_distance = max(max_distance, occupied_positions[0]);
-
-    // 마지막 자리와 마지막 사람 사이의 거리
-    max_distance = max(max_distance, N - 1 - occupied_positions.back());
-
-    // 결과 출력
-    cout << max_distance << endl;
-
+    cout << ans;
     return 0;
 }
