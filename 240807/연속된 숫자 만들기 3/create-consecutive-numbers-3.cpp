@@ -1,21 +1,23 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
 int main() {
-    int a, b, c;
-    cin >> a >> b >> c;
+    vector<size_t> poses(3); // 3명의 위치를 저장할 벡터
 
-    // 연속된 숫자로 만들기 위해 필요한 최대 이동 횟수 계산
-    int maxMoves = (c - a - 2);
-
-    // 이동 횟수는 음수가 되지 않으므로 0 이상의 값으로 설정
-    if (maxMoves < 0) {
-        maxMoves = 0;
+    // 위치 입력 받기
+    for (int i = 0; i < 3; i++) {
+        cin >> poses[i];
     }
 
-    cout << maxMoves << endl;
+    // 두 위치 간의 차이 계산
+    size_t diff1 = poses[1] - poses[0];
+    size_t diff2 = poses[2] - poses[1];
+
+    // 최대 차이에서 1을 빼고 출력
+    cout << max(diff1, diff2) - 1 << endl;
 
     return 0;
 }
