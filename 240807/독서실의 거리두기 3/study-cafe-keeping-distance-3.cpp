@@ -28,7 +28,7 @@ int main() {
     }
 
     // 거리의 절반을 계산하고, 추가적인 자리에서의 거리도 고려
-    max_distance = (max_distance + 1) / 2;
+    max_distance = (max_distance - 1) / 2; // 1을 빼고 절반
 
     // 첫 번째 자리와 첫 사람 사이의 거리
     max_distance = max(max_distance, occupied_positions[0]);
