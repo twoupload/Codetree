@@ -3,10 +3,10 @@
 using namespace std;
 
 int main() {
-    int count, num;
+    int count, num, i = 0;
     cin >> count;
 
-    while(1) {
+    while(i < count) {
         cin >> num;
 
         if(num == 0) break;
