@@ -14,7 +14,8 @@ int main() {
         else{
             if(num % 3 == 0) cout << num / 3;
             else cout << num + 2;
-
+            i++;
+            
             cout << endl;
         }
     }
