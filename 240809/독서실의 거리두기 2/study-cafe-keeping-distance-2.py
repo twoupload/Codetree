@@ -1,56 +1,101 @@
-# 기존에 앉은 사람이 1인 경우 양 끝에 앉혔을 때 거리두기 값이 큰 경우가 답
-# 기존에 앉은 사람이 둘 이상인 경우 양 끝에 사람이 있는지 없는지로 나뉨
-#   양 끝중 하나라도 없는 경우 없는 위치에 한 번씩 놓아봐야 한다.
-#       양 끝에 놓기 전 기준으로 한 명 추가했을 때 거리두기 최댓값
-#       양 끝에 한 명씩 추가했을 때 거리두기 최댓값
-#       둘 중 최댓값이 답이다.
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <climits>
 
-import sys
+using namespace std;
 
-N = int(input())
-seated = list(map(int, list(input())))
-# print(seated)
+int n;
+string seats;
+
+int main() {
+    // 입력:
+    cin >> n;
+    cin >> seats;
+    
+    // Step1-1. 최적의 위치 찾기
+    // 인접한 쌍들 중 가장 먼 1간의 쌍을 찾습니다.
+    int max_dist = 0;
+    int max_i, max_j;
+    for(int i = 0; i < n; i++) {
+        if(seats[i] == '1') {
+            for(int j = i + 1; j < n; j++)
+                if(seats[j] == '1') {
+                    // 1간의 쌍을 골랐을 때
+                    // 두 좌석간의 거리가 지금까지의 최적의 답 보다 더 좋다면
+                    // 값을 갱신해줍니다.
+                    if(j - i > max_dist) {
+                        max_dist = j - i;
+
+                        // 이때, 두 좌석의 위치를 기억합니다.
+                        max_i = i;
+                        max_j = j;
+                    }
+
+                    // 인접한 쌍을 찾았으므로 빠져나옵니다.
+                    break;
+                }
+        }
+    }
+
+    // Step1-2. 최적의 위치 찾기(예외 처리)
+    // 만약 맨 앞 좌석이 비거나, 맨 뒷 좌석이 비어있는 경우의
+    // 예외 처리를 해줍니다.
+    int max_dist2 = -1;
+    int max_idx = -1;
+    // 맨 앞 좌석이 비어있을 때, 맨 앞 좌석에 배정하면
+    // 거리가 얼마나 줄어드는지 확인합니다.
+    if(seats[0] == '0') {
+        int dist = 0;
+        for(int i = 0; i < n; i++) {
+            if(seats[i] == '1')
+                break;
+            dist++;
+        }
+        if(dist > max_dist2) {
+            max_dist2 = dist;
+            max_idx = 0;
+        }
+    }
+
+    // 맨 뒷 좌석이 비어있을 때, 맨 뒷 좌석에 배정하면
+    // 거리가 얼마나 줄어드는지 확인합니다.
+    if(seats[n - 1] == '0') {
+        int dist = 0;
+        for(int i = n - 1; i >= 0; i--) {
+            if(seats[i] == '1')
+                break;
+            dist++;
+        }
+        if(dist > max_dist2) {
+            max_dist2 = dist;
+            max_idx = n - 1;
+        }
+    }
 
 
-def get_min_and_max_dist():
+    // Step2. 최적의 위치에 1을 놓습니다.
+    // 앞서 찾은 자리들 중 최적의 위치에 놓으면 됩니다.
+    if(max_dist2 >= max_dist / 2)
+        seats[max_idx] = '1';
+    else
+        seats[(max_i + max_j) / 2] = '1';
 
-    min_dist = sys.maxsize
-    max_dist = -sys.maxsize
-    for i in range(N-1):
-        if seated[i] == 1:
-            for j in range(i+1, N):
-                if seated[j] == 1:
-                    dist = j - i
-                    break
-            min_dist = min(min_dist, dist)
-            max_dist = max(max_dist, dist)
-    return min_dist, max_dist
+    // Step3. 이제 인접한 쌍들 중 가장 가까운 1간의 쌍을 찾습니다.
+    // 이때의 값이 답이 됩니다.
+    int ans = INT_MAX;
+    for(int i = 0; i < n; i++) {
+        if(seats[i] == '1') {
+            for(int j = i + 1; j < n; j++)
+                if(seats[j] == '1') {
+                    ans = min(ans, j - i);
+					
+					// 인접한 쌍을 찾았으므로 빠져나옵니다.
+                    break;
+                }
+        }
+    }
 
-# 기존에 앉은 사람이 1인 경우 양 끝에 앉혔을 때 거리두기 값이 큰 경우가 답
-seat_count = seated.count(1)
-if seat_count == 1:
-    index = seated.index(1)
-    print(max(index, N-1-index))
-    sys.exit()
-
-# 기존에 앉은 사람이 둘 이상인 경우
-min_dist, max_dist = get_min_and_max_dist()
-answer = 0
-if min_dist <= max_dist // 2:
-    answer = min_dist
-else:
-    answer = max_dist // 2
-
-if seated[0] != 1:
-    seated[0] = 1
-    new_min_dist, new_max_dist = get_min_and_max_dist()
-    answer = max(answer, new_min_dist)
-    seated[0] = 0
-
-if seated[N-1] != 1:
-    seated[N-1] = 1
-    new_min_dist, new_max_dist = get_min_and_max_dist()
-    answer = max(answer, new_min_dist)
-    seated[1] = 0
-
-print(answer)
+    cout << ans;
+    return 0;
+}
