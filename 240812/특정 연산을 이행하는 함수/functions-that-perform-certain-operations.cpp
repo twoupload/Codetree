@@ -7,8 +7,8 @@ int main() {
     for(int i = 0; i < 3; i++) {
         cin >> n;
 
-        if(n % 2 == 0) cout << n / 2 << endl;
-        else cout << (n * 3) - 20 << endl;
+        if(n % 2 == 0) cout << n / 2 << " ";
+        else cout << (n * 3) - 20 << " ";
     }
     return 0;
 }
