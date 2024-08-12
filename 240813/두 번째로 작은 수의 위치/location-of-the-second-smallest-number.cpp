@@ -26,14 +26,22 @@ int main() {
     ++it; // 두 번째 원소로 이동
     int secondSmallest = *it;
 
-    // 두 번째로 작은 수의 위치 찾기
+    // 두 번째로 작은 수의 개수 확인
+    int count = 0;
+    int position = -1;
     for (int i = 0; i < n; i++) {
         if (numbers[i] == secondSmallest) {
-            cout << i + 1 << endl; // 1-based 인덱스 출력
-            return 0;
+            count++;
+            position = i + 1; // 1-based 인덱스 저장
         }
     }
 
-    cout << -1 << endl; // 만약 두 번째로 작은 수가 여러 개일 경우
+    // 두 번째로 작은 수가 여러 개일 경우 -1 출력
+    if (count > 1) {
+        cout << -1 << endl;
+    } else {
+        cout << position << endl; // 위치 출력
+    }
+
     return 0;
 }
