@@ -10,14 +10,8 @@ int main() {
 
     arr[0] = a, arr[1] = b;
 
-    for(int i = 2; i < n; i++) {
-        if(i > 0 && i < 100) 
-            arr[i] = (arr[i - 2] + arr[i - 1]) % 10;
-        else if(i >= 100 && i < 1000)
-             arr[i] = (arr[i - 2] + arr[i - 1]) % 100;       
-        else
-             arr[i] = (arr[i - 2] + arr[i - 1]) % 1000;      
-    }
+    for(int i = 2; i < n; i++)
+        arr[i] = (arr[i - 2] + arr[i - 1]) % 10;
 
     for(int i = 0; i < n; i++) {
         cout << arr[i] << " ";
