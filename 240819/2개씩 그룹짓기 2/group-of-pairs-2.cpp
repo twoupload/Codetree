@@ -19,12 +19,6 @@ int main() {
     // 배열을 정렬합니다.
     sort(arr.begin(), arr.end());
 
-    for(int i = 0; i < arr.size(); i++) {
-        cout << arr[i] << " ";
-    }
-
-    cout << endl;
-
     // 두 원소의 차이의 최솟값을 최대화하기 위해
     long long min_diff = LLONG_MAX; // 최대값 지정
 
