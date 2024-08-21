@@ -15,7 +15,7 @@ o use_order[101];
 /// n번 섞은 이후의 카드
 long long card_num[101];
 
-int n, i;
+int n, i,j;
 
 int main() {
     cin >> n;
@@ -34,22 +34,35 @@ int main() {
 
 
     int cnt = 1;
-    for(i = 3; i >= 1; i--)
+    for(i = 4; i >= 1; i--)
     {
         use_order[cnt].to = order[i].from;
         use_order[cnt].from = order[i].to;
         cnt++;
     }
 
-    for(i = 1; i <= 3; i++)
+    for(i = 1; i <= 4; i++)
     {
         int a, b;
         a = card_num[use_order[i].to];
         b = card_num[use_order[i].from];
 
+        //cout << a << " " << b << endl;
+
         card_num[use_order[i].to] = b;
         card_num[use_order[i].from] = a;
+
+        /*
+        for(j = 1; j <= n; j++) 
+        {
+            cout << card_num[j] << " ";
+        }
+        cout << endl;
+        */
     }
+
+    //cout << endl;
+    //cout << endl;
 
     for(i = 1; i <= n; i++)
         cout << card_num[i] << endl;
