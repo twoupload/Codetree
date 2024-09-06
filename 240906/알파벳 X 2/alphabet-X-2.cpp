@@ -1,57 +1,52 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-string str;
-int i, j, cnt;
-
-// 구조체
-struct alp {
-	int startPos, endPos;
+struct Segment {
+    int start, end;
 };
 
-// 구조체 초기화
-alp alpArr[26];
+int main() {
+    string str;
+    cin >> str;
 
-// 한번 알아봤던 것인지 확인하는 배열
-int check[26];
+    Segment segments[26];
+    bool seen[26] = {false};
 
-int main()
-{
-	//freopen("input.txt", "r", stdin);
+    // 각 알파벳의 시작과 끝 위치를 기록
+    for (int i = 0; i < 52; i++) {
+        char c = str[i];
+        int index = c - 'A';
+        if (!seen[index]) {
+            segments[index].start = i;
+            seen[index] = true;
+        } else {
+            segments[index].end = i;
+        }
+    }
 
-	cin >> str;
+    int count = 0;
 
-	// 각 알파벳의 시작지점과 끝나는 지점을 구한다.
-	for (i = 0; i < 52; i++) {
-		int num = str[i] - 'A';
+    // 선분의 겹침 여부를 확인
+    for (int i = 0; i < 26; i++) {
+        for (int j = i + 1; j < 26; j++) {
+            // 선분 i와 j가 겹치는지 확인
+            if (segments[i].end < segments[j].start || segments[j].end < segments[i].start) {
+                continue; // 겹치지 않음
+            }
+            // 어중간하게 겹치는지 확인
+            if (segments[i].start < segments[j].start && segments[i].end > segments[j].end) {
+                continue; // 완전히 포함
+            }
+            if (segments[j].start < segments[i].start && segments[j].end > segments[i].end) {
+                continue; // 완전히 포함
+            }
+            // 어중간하게 겹치는 경우
+            count++;
+        }
+    }
 
-		if (check[num] == 0) {
-			alpArr[num].startPos = i;
-			for (j = i + 1; j < 52; j++) {
-				if (str[i] == str[j])
-					alpArr[num].endPos = j;
-			}
-			check[num] = 1;
-		}
-	}
+    cout << count << endl;
 
-	// 하나씩 비교하면서 대응되는 알파벳이 완벽하게 겹치는지 어중간하게 겹치는지 구한다.
-	for (i = 0; i < 25; i++) {
-		for (j = i + 1; j < 26; j++) {
-			// 비교 끝점 < 기준 시작점
-			if (alpArr[j].endPos < alpArr[i].startPos) continue;
-			// 비교 시작점 > 기준 끝점
-			else if (alpArr[j].startPos > alpArr[i].endPos) continue;
-			// 기준의 시작점 < 비교 시작점과 끝점 < 기준의 끝점
-			else if (alpArr[j].startPos > alpArr[i].startPos && alpArr[j].endPos < alpArr[i].endPos) continue;
-			// 나머지를 카운트
-			else {
-				cnt++;
-			}
-		}
-	}
-
-	cout << cnt;
-	
-	return 0;
+    return 0;
 }
