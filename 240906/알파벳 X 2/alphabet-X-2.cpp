@@ -1,33 +1,41 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-struct Segment {
-    int start, end;
+string str;
+int i, j, cnt;
+
+// 구조체
+struct alp {
+	int start, end;
 };
 
-int main() {
-    string str;
-    cin >> str;
+// 구조체 초기화
+alp segments[26];
 
-    Segment segments[26];
-    bool seen[26] = {false};
+// 한번 알아봤던 것인지 확인하는 배열
+int check[26];
 
-    // 각 알파벳의 시작과 끝 위치를 기록
-    for (int i = 0; i < 52; i++) {
-        char c = str[i];
-        int index = c - 'A';
-        if (!seen[index]) {
-            segments[index].start = i;
-            seen[index] = true;
-        } else {
-            segments[index].end = i;
-        }
-    }
+int main()
+{
+	//freopen("input.txt", "r", stdin);
 
-    int count = 0;
+	cin >> str;
 
-    // 선분의 겹침 여부를 확인
+	// 각 알파벳의 시작지점과 끝나는 지점을 구한다.
+	for (i = 0; i < 52; i++) {
+		int num = str[i] - 'A';
+
+		if (check[num] == 0) {
+			segments[num].start = i;
+			for (j = i + 1; j < 52; j++) {
+				if (str[i] == str[j])
+					segments[num].end = j;
+			}
+			check[num] = 1;
+		}
+	}
+
+	// 하나씩 비교하면서 대응되는 알파벳이 완벽하게 겹치는지 어중간하게 겹치는지 구한다.
     for (int i = 0; i < 26; i++) {
         for (int j = i + 1; j < 26; j++) {
             // 선분 i와 j가 겹치는지 확인
@@ -42,11 +50,11 @@ int main() {
                 continue; // 완전히 포함
             }
             // 어중간하게 겹치는 경우
-            count++;
+            cnt++;
         }
-    }
+	}
 
-    cout << count << endl;
-
-    return 0;
+	cout << cnt;
+	
+	return 0;
 }
